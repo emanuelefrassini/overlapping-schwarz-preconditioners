@@ -1,0 +1,27 @@
+name: Numerical verification
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install numerical package and tests
+        run: python -m pip install -e ".[dev]"
+      - name: Test numerical correctness
+        run: python -m pytest -q
+      - name: Regenerate numerical experiments (headless)
+        env:
+          MPLBACKEND: Agg
+        run: |
+          python scripts/run_demo.py
+          python scripts/run_benchmarks.py

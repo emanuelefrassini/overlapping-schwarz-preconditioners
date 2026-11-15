@@ -1,0 +1,16 @@
+subdomains_per_axis,total_subdomains,interior_nodes_per_axis,unknowns,overlap_layers,method,iterations,relative_residual
+2,4,15,225,2,CG,52,4.231487940400e-10
+2,4,15,225,2,One-level Schwarz,15,2.652383364363e-10
+2,4,15,225,2,Two-level Schwarz,14,8.221243535917e-10
+3,9,23,529,2,CG,78,9.258321656801e-10
+3,9,23,529,2,One-level Schwarz,18,7.743549156330e-10
+3,9,23,529,2,Two-level Schwarz,17,8.570907866643e-10
+4,16,31,961,2,CG,106,8.933272439262e-10
+4,16,31,961,2,One-level Schwarz,22,4.594651250176e-10
+4,16,31,961,2,Two-level Schwarz,20,3.688837936829e-10
+5,25,39,1521,2,CG,131,9.505756805464e-10
+5,25,39,1521,2,One-level Schwarz,25,7.564538302104e-10
+5,25,39,1521,2,Two-level Schwarz,20,7.591060764871e-10
+6,36,47,2209,2,CG,153,8.749800579875e-10
+6,36,47,2209,2,One-level Schwarz,28,9.327263748972e-10
+6,36,47,2209,2,Two-level Schwarz,21,3.412490466612e-10

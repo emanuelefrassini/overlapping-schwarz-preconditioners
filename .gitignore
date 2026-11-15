@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+.DS_Store
+# Reviewed, committed figures/CSV are intentionally retained. Temporary outputs:
+figures/_scratch_*.png
+results/_scratch_*.csv

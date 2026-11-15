@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "overlapping-schwarz-preconditioners"
+version = "0.1.0"
+description = "Verified sparse Poisson solvers with one- and two-level additive Schwarz preconditioning"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = ["numpy>=1.24,<3", "scipy>=1.14,<2", "matplotlib>=3.7,<4"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7,<10"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

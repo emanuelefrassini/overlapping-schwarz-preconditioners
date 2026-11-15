@@ -1,0 +1,2 @@
+# Preserve historical coursework with original Windows CRLF and whitespace.
+legacy/coursework/*.m -text -whitespace
