@@ -2,21 +2,21 @@
 
 **Sparse Python implementation of one- and two-level additive Schwarz preconditioners, with conjugate-gradient benchmarks, manufactured-solution tests, and reproducible figures.**
 
-I revisited my Computational Fluid Dynamics coursework on domain decomposition and preconditioned iterative methods. I developed this new, verifiable Python/SciPy implementation to compare unpreconditioned conjugate gradients (CG), overlapping additive Schwarz, and a two-level Schwarz method with a coarse-grid correction. I preserved my **original, unmodified MATLAB drafts** under [`legacy/coursework/`](legacy/README.md); they are not relied on for the numerical results shown here.
+I revisited my Computational Fluid Dynamics coursework on domain decomposition and preconditioned iterative methods. I developed this new, verifiable Python implementation to compare unpreconditioned conjugate gradients (CG), overlapping additive Schwarz, and a two-level Schwarz method with a coarse grid correction. I preserved my **original, unmodified MATLAB drafts** under [`legacy/coursework/`](legacy/README.md).
 
-> **Scope:** This is a numerical linear algebra / elliptic-PDE project arising from CFD coursework. It solves a *scalar Poisson equation*, **not** the Navier–Stokes equations. No MATLAB licence is needed.
+> **Scope:** This is a numerical linear algebra project from my CFD coursework. It solves a *scalar Poisson equation*, **not** the Navier–Stokes equations. No MATLAB licence is needed.
 
 ## Why domain decomposition?
 
-Large discretized PDE systems often benefit from preconditioners that solve smaller local problems. Overlapping additive Schwarz combines local corrections; a second-level coarse correction is intended to improve the treatment of error components not efficiently removed locally.
+Large discretized PDE systems often benefit from preconditioners that solve smaller local problems. Overlapping additive Schwarz combines local corrections. A second-level coarse correction is intended to improve the treatment of error components not efficiently removed locally.
 
 ![Overlapping domains on the Poisson grid](figures/subdomain_overlap.png)
 
-*Illustration from the implementation: nine overlapping subdomains, enlarged by two fine-grid node layers.*
+*Illustration from the implementation: nine overlapping subdomains, enlarged by two fine grid node layers.*
 
 ## Methods compared
 
-For the Poisson problem $-\Delta u=f$ on $(0,1)^2$ with Dirichlet boundary data, I assemble a symmetric positive-definite **five-point finite-difference** system using sparse Kronecker products.
+For the Poisson problem $-\Delta u=f$ on $(0,1)^2$ with Dirichlet boundary data, I assemble a symmetric positive-definite **five point finite difference** system using sparse Kronecker products.
 
 | Method | Action |
 |---|---|
@@ -30,7 +30,7 @@ The preconditioners use **sparse local factorizations**, never a dense global in
 
 ![CG and Schwarz relative-residual convergence](figures/pcg_residuals.png)
 
-On a grid with **1,521 unknowns**, 25 overlapping subdomains and two layers of overlap, the observed iteration counts to a relative residual of $10^{-9}$ were:
+On a grid with **1521 unknowns**, 25 overlapping subdomains and two layers of overlap, the observed iteration counts to a relative residual of $10^{-9}$ were:
 
 | Solver | Iterations |
 |---|---:|
@@ -38,7 +38,7 @@ On a grid with **1,521 unknowns**, 25 overlapping subdomains and two layers of o
 | One-level overlapping Schwarz + CG | **25** |
 | Two-level overlapping Schwarz + CG | **20** |
 
-The two-level method requires fewer iterations in these tests, but **iteration counts are not runtime speedups**: the local and coarse factorizations incur setup and application cost. These serial experiments do not demonstrate parallel acceleration or general mesh-independent convergence.
+The two level method requires fewer iterations in these tests, but **iteration counts are not runtime speedups**: the local and coarse factorizations influence setup and application cost. These serial experiments do not demonstrate parallel acceleration or general mesh independent convergence.
 
 ![CG iterations under grid growth](figures/scaling_iterations.png)
 
@@ -58,13 +58,13 @@ $$
 u(x,y)=\tfrac16\big(x^4-2x^3+x+y^4-2y^3+y\big).
 $$
 
-I verified this **with its actual nonzero Dirichlet boundary values**; treating it as zero on every boundary would be mathematically inconsistent. The new solver reproduces the original PDE data with a sparse interior-node formulation. Separate sine and zero-boundary polynomial tests check discretization accuracy and exact consistency with the five-point stencil.
+I verified this **with its actual nonzero Dirichlet boundary values**. Treating it as zero on every boundary would be mathematically inconsistent. The new solver reproduces the original PDE data with a sparse interior node formulation. Separate sine and zero-boundary polynomial tests check discretization accuracy and exact consistency with the five point stencil.
 
 ![Poisson solution and absolute error](figures/poisson_solution.png)
 
 *Computed Poisson solution from the coursework source and its error relative to the analytical polynomial at 39×39 interior nodes.*
 
-This is a **reconstruction of the original mathematical problem**, not a line-for-line port. The MATLAB source contains unfinished sections and inconsistent boundary/index handling. See [coursework provenance](legacy/README.md) and [verification details](docs/verification.md).
+This is a **reconstruction of the original mathematical problem**. See [coursework provenance](legacy/README.md) and [verification details](docs/verification.md).
 
 ## Reproduce locally
 
@@ -99,6 +99,6 @@ legacy/coursework/       Original MATLAB coursework scripts (unaltered)
 
 ## Limitations
 
-The implementation uses a regular 2D grid, a scalar constant-coefficient Poisson operator, sparse direct local solves and **serial** additive Schwarz. It does not implement an MPI domain decomposition, a fluid-flow simulator, variable coefficients or an unstructured finite-element discretization. The benchmark measures **iterations**, not wall-clock speed or parallel scalability. The legacy MATLAB drafts are included for provenance and have not been validated.
+The implementation uses a regular 2D grid, a scalar constant coefficient Poisson operator, sparse direct local solves and **serial** additive Schwarz. The benchmark measures **iterations**, not wall-clock speed or parallel scalability. The legacy MATLAB drafts are included for provenance and have not been validated.
 
-I have not assigned an open-source licence to the repository; a suitable licence can be added if I choose to grant reuse permissions.
+I have not assigned an open-source licence to the repository. A suitable licence can be added if I choose to grant reuse permissions.
