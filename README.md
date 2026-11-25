@@ -1,6 +1,6 @@
 # Overlapping Schwarz Preconditioners for the 2D Poisson Equation
 
-**Sparse Python implementation of one- and two-level additive Schwarz preconditioners, with conjugate-gradient benchmarks, manufactured-solution tests, and reproducible figures.**
+**Sparse Python implementation of one- and two-level additive Schwarz preconditioners, with conjugate gradient benchmarks, manufactured-solution tests, and reproducible figures.**
 
 I revisited my Computational Fluid Dynamics coursework on domain decomposition and preconditioned iterative methods. I developed this new, verifiable Python implementation to compare unpreconditioned conjugate gradients (CG), overlapping additive Schwarz, and a two-level Schwarz method with a coarse grid correction. I preserved my **original, unmodified MATLAB drafts** under [`legacy/coursework/`](legacy/README.md).
 
